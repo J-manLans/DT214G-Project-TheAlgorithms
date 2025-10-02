@@ -113,7 +113,7 @@
                     <dependency>
                     <groupId>com.puppycrawl.tools</groupId>
                     <artifactId>checkstyle</artifactId>
-                    <version>11.1.0</version>
+                    <version>9.3</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -153,6 +153,50 @@
                     <linkXRef>false</linkXRef>
                     <excludeFromFailureFile>pmd-exclude.properties</excludeFromFailureFile>
                 </configuration>
+            </plugin>
+
+            <plugin> <!-- PIT Mutation Testing Plugin -->
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.20.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <targetClasses> <!-- Classes to mutate -->
+                        <param>com.thealgorithms.*</param>
+                    </targetClasses>
+                    <targetTests> <!-- Test classes to run -->
+                        <param>com.thealgorithms.*</param>
+                    </targetTests>
+                    <mutators> <!-- Mutation operators to use -->
+                        <mutator>DEFAULTS</mutator>
+                    </mutators>
+                    <threads>4</threads> <!-- Number of threads -->
+                    <outputFormats>
+                        <param>HTML</param>
+                        <param>XML</param>
+                    </outputFormats>
+                    <verbose>true</verbose> <!-- Verbose reporting for education -->
+                    <timeoutConstant>4000</timeoutConstant> <!-- Timeout in milliseconds -->
+                    <jvmArgs> <!-- Memory in MB -->
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
+                    <skipFailingTests>true</skipFailingTests> <!-- Skip failing tests -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pitest</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
