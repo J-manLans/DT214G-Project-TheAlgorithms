@@ -12,12 +12,7 @@ public class SimpsonIntegrationTest {
 
     @Test
     void shouldCalculateCorrectFunction() {
-        assertAll(
-            () -> assertEquals(-0.24893534183931973, simpson.f(3)),
-            () -> assertEquals(0.0, simpson.f(2)),
-            () -> assertEquals(4.0, simpson.f(0)),
-            () -> assertEquals(8.154845485377136, simpson.f(-1))
-        );
+        assertAll(() -> assertEquals(-0.24893534183931973, simpson.f(3)), () -> assertEquals(0.0, simpson.f(2)), () -> assertEquals(4.0, simpson.f(0)), () -> assertEquals(8.154845485377136, simpson.f(-1)));
     }
 
     @Test
@@ -25,11 +20,11 @@ public class SimpsonIntegrationTest {
         int n = 4;
         double a = -1.0;
         double b = 1.0;
-        double h = (b - a)/n;
+        double h = (b - a) / n;
 
         double result = simpson.simpsonsMethod(n, h, a);
         double expected = 8.51454379418048;
-        
+
         assertEquals(expected, result, DELTA);
     }
 
